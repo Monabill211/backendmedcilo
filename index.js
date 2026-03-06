@@ -11,10 +11,7 @@ app.use(express.json());
 async function connectDB() {
   console.log("Connecting to MongoDB...");
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+   await mongoose.connect("mongodb+srv://monabil:MwwN18kcJu70W90P@cluster1.wxy1yhx.mongodb.net/?appName=Cluster1")
     console.log("MongoDB Connected ✅");
   } catch (error) {
     console.log("Database Error ❌");
