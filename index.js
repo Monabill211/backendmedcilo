@@ -11,11 +11,14 @@ app.use(express.json());
 async function connectDB() {
   console.log("Connecting to MongoDB...");
   try {
-    await mongoose.connect(process.env.MONGO_URI)
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
     console.log("MongoDB Connected ✅");
   } catch (error) {
     console.log("Database Error ❌");
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -25,22 +28,24 @@ app.get("/", (req, res) => {
   res.send("API Running 🚀");
 });
 
-// 🔥 إضافة حجز
+// إضافة حجز
 app.post("/api/bookings", async (req, res) => {
   try {
     const booking = await Booking.create(req.body);
     res.status(201).json(booking);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error creating booking" });
   }
 });
 
-// 🔥 جلب الحجوزات
+// جلب الحجوزات
 app.get("/api/bookings", async (req, res) => {
   try {
     const bookings = await Booking.find().sort({ createdAt: -1 });
     res.json(bookings);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Error fetching bookings" });
   }
 });
