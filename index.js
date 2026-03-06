@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 // 🔥 إضافة حجز
-app.post(  "https://backendmedcilo-production.up.railway.app/api/bookings", async (req, res) => {
+app.post("/api/bookings", async (req, res) => {
   try {
     const booking = await Booking.create(req.body);
     res.status(201).json(booking);
@@ -36,8 +36,7 @@ app.post(  "https://backendmedcilo-production.up.railway.app/api/bookings", asyn
 });
 
 // 🔥 جلب الحجوزات
-app.get(  "https://backendmedcilo-production.up.railway.app/api/bookings",
- async (req, res) => {
+app.get("/api/bookings", async (req, res) => {
   try {
     const bookings = await Booking.find().sort({ createdAt: -1 });
     res.json(bookings);
