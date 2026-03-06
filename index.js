@@ -34,9 +34,10 @@ app.post("/api/bookings", async (req, res) => {
     const booking = await Booking.create(req.body);
     res.status(201).json(booking);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error creating booking" });
-  }
+  console.log(error);
+  res.status(500).json({ message: error.message });
+}
+  
 });
 
 // جلب الحجوزات
